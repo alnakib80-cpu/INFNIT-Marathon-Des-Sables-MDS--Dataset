@@ -3,7 +3,7 @@
 **The most comprehensive Marathon des Sables performance dataset ever assembled.**
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20329869.svg)](https://doi.org/10.5281/zenodo.20329869)
 
 ---
 
@@ -83,7 +83,7 @@ print(dnf['last_stage'].value_counts().sort_index())
   title     = {INFNIT™ Marathon des Sables Dataset 1986–2026},
   year      = {2026},
   publisher = {Zenodo},
-  doi       = {10.5281/zenodo.XXXXXXX},
+  doi       = {10.5281/zenodo.20329869},
   url       = {https://github.com/alnakib80-cpu/INFNIT-MDS-Dataset}
 }
 ```
