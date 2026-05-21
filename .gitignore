@@ -1,6 +1,13 @@
-.scrapy/
-duv_httpcache/
-TWO_CENTURIES_OF_UM_RACES.csv
-*.pkl
-*.pt
-*.npy
+# Exclude everything by default
+*
+
+# Allow only these
+!.gitignore
+!INFNIT_MDS_DATASET.csv
+!README.md
+!dataset/
+!dataset/**
+!docs/
+!docs/**
+!provenance/
+!provenance/**
