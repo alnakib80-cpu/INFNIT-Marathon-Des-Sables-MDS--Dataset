@@ -1,0 +1,6 @@
+.scrapy/
+duv_httpcache/
+TWO_CENTURIES_OF_UM_RACES.csv
+*.pkl
+*.pt
+*.npy
