@@ -1,104 +1,117 @@
-# INFNIT™ Marathon des Sables Dataset 1986–2026
+# INFNIT™ Marathon Des Sables Dataset 1986–2026
 
-**The most comprehensive Marathon des Sables performance dataset ever assembled.**
+The most complete Marathon Des Sables results dataset ever compiled, combining DUV historical records with LiveTrail stage-level data across 40 editions from 1986 to 2026.
 
+**24,163 records | 1986–2026 | 40 editions | 2,201 DNFs | 100+ nationalities**
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20340189.svg)](https://doi.org/10.5281/zenodo.20340189)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20329869.svg)](https://doi.org/10.5281/zenodo.20329869)
 
 ---
 
-## Overview
+## Coverage
 
-24,163 anonymised athlete records across 40 editions of the Marathon des Sables (MDS) — 1986 through the 40th edition in 2026.
-
-| Metric | Value |
-|--------|-------|
+| Field | Value |
+|-------|-------|
 | Total records | 24,163 |
-| Editions covered | 40 (1986–2026, 2020 cancelled) |
-| Finisher records | 23,183 |
-| DNF records with stage dropout | 922 |
-| Full detail years | 2021–2026 |
-| Finisher-only years | 1986–2019 |
-
-**Anonymisation:** Names, club affiliations, and bib numbers removed prior to release (UK GDPR Article 5(1)(c)). Performance, demographic, and stage dropout data fully retained.
+| Years | 1986–2026 |
+| Editions | 40 |
+| Finishers | 23,183 |
+| DNFs | 2,201 |
+| DNF data available | 2019–2026 (LiveTrail) |
 
 ---
 
-## What Makes This Dataset Unique
+## Key DNF Statistics
 
-- **922 DNF records with exact stage dropout** — first public dataset to capture where athletes withdrew at checkpoint level
-- **40 years of finisher data** — longest longitudinal MDS record publicly available
-- **Survival phase transition** — Stage 4 (~91km) accounts for 41% of DNFs in normal conditions
-- **Dual-source** — DUV Statistik (1986–2019) + LiveTrail API (2021–2026)
+| Year | Total | DNF | DNF Rate |
+|------|-------|-----|----------|
+| 2019 | 1,568 | 86 | 5.5% |
+| 2021 | 1,367 | 659 | **48.2%** |
+| 2022 | 1,922 | 327 | 17.0% |
+| 2023 | 2,212 | 688 | 31.1% |
+| 2024 | 1,702 | 147 | 8.6% |
+| 2025 | 1,792 | 99 | 5.5% |
+| 2026 | 2,885 | 195 | 6.8% |
 
----
-
-## Key Findings
-
-- S4 dominant collapse: 41.2% of DNFs in 2026 — long stage effect confirmed
-- S2 pacing failure: Stage 2 DNFs were 32.8% faster than finisher pace at dropout
-- Post-S5 survival: effectively zero attrition after Stage 5
-- 2021 heat anomaly: 44.6% DNF rate — October extreme heat edition
-- Velocity tiers: ELITE 2.10 m/s | MID 1.57 m/s | BACK 1.11 m/s
+*2021 extreme heat edition — 48.2% DNF rate confirms survival phase transition finding.*
+*DNF variance across editions: 8.76×*
 
 ---
 
-## Files
+## Columns
 
-```
-dataset/
-├── INFNIT_MDS_DATASET.csv     # Master dataset (24,163 rows, anonymised)
-├── data_dictionary.md         # Column definitions + anonymisation statement
-└── editions_reference.md      # Edition history
-
-docs/
-├── kaggle_dataset_card.md     # Kaggle description
-├── zenodo_metadata.md         # Zenodo deposit fields
-└── citation.bib               # BibTeX
-
-provenance/
-└── methodology.md             # Data collection + anonymisation methodology
-```
+| Column | Type | Description |
+|--------|------|-------------|
+| pseudo_id | str | SHA-256 pseudonymous identifier — no names |
+| source_file | str | Data source (DUV or LiveTrail) |
+| race_series | str | Race series identifier (MDS) |
+| edition | str | Edition identifier |
+| year | int | Race year (1986–2026) |
+| gender | str | M (male) or F (female) |
+| nationality | str | Runner nationality (ISO alpha-3) |
+| yob | float | Year of birth |
+| age_at_race | float | Age at time of race |
+| age_cat | str | Age category |
+| tier | str | Performance tier |
+| status | str | FINISHER, WITHDRAWN, DID_NOT_START, OUT_OF_TIME |
+| dnf_flag | int | 0 (finisher) or 1 (did not finish) |
+| rank | float | Overall finishing position |
+| rank_gender | float | Finishing position within gender |
+| finish_hours | float | Finish time as decimal hours |
+| avg_speed | float | Average speed km/h |
+| distance_km | float | Race distance in kilometres |
+| stage_count | float | Number of stages |
+| data_completeness | str | Coverage indicator |
 
 ---
 
-## Quick Start
+## DNF Data Coverage
 
-```python
-import pandas as pd
+DNF records are available for 2019–2026 only via LiveTrail. Pre-2019 records are finisher-only from DUV. The `data_completeness` column flags this distinction.
 
-df = pd.read_csv('dataset/INFNIT_MDS_DATASET.csv')
+---
 
-dnf = df[(df['status'] == 'WITHDRAWN') & df['last_stage'].notna()]
-print(dnf['last_stage'].value_counts().sort_index())
-```
+## Data Sources
+
+- **DUV Ultramarathon Statistics** (statistik.d-u-v.org) — historical finisher records 1986–2026
+- **LiveTrail** (livetrail.net) — individual runner data including DNF status 2019–2026
+
+---
+
+## GDPR Note
+
+Name columns removed. `pseudo_id` is a SHA-256 hash of non-PII fields (source, edition, rank, gender, nationality, yob). No personal identifiers in this dataset. GDPR-compliant for research use.
+
+---
+
+## License
+
+This dataset is released under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+
+You are free to share and adapt this material for any purpose, provided appropriate credit is given.
 
 ---
 
 ## Citation
 
-```bibtex
-@dataset{alnakib_mds_2026,
-  author    = {Al Nakib, Faisal},
-  title     = {INFNIT™ Marathon des Sables Dataset 1986–2026},
-  year      = {2026},
-  publisher = {Zenodo},
-  doi       = {10.5281/zenodo.20329869},
-  url       = {https://github.com/alnakib80-cpu/INFNIT-MDS-Dataset}
-}
+```
+Al-Nakib, F. (2026). INFNIT™ Marathon Des Sables Dataset 1986–2026 (v2.0.0).
+Zenodo. https://doi.org/10.5281/zenodo.20340189
 ```
 
 ---
 
-## Author
+## Related Datasets
 
-**Faisal Al Nakib** | MA AI, University of Southampton | INFNIT™ Founder | UK IPO UK00004363115
+- [INFNIT™ DUV Ultramarathon Dataset](https://doi.org/10.5281/zenodo.20341196)
+- [INFNIT™ UTMB World Series Dataset](https://doi.org/10.5281/zenodo.20348998)
 
-## Licence
+---
 
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+## About INFNIT™
 
-## Sources
+Part of the INFNIT™ research programme — AI-driven ultramarathon performance platform combining BiLSTM, PPO reinforcement learning, and survival analysis for elite endurance racing.
 
-- DUV Statistik (statistik.d-u-v.org) — 1986–2019
-- LiveTrail (livetrail.net) — 2021–2026
+**MA AI, University of Southampton**
+**GitHub:** https://github.com/alnakib80-cpu/INFNIT-Marathon-Des-Sables-MDS--Dataset
